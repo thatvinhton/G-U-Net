@@ -630,40 +630,5 @@ class Network(object):
             output = GroupPool('C4')(input)
             return output
 
-    @layer
-    def g_avg_global_pool_rot(self, input, name):
-
-        with tf.variable_scope(name) as scope:
-            shape = K.shape(input)
-            stack_shape = K.stack([shape[0], shape[1], shape[2], shape[3] // 4, 4])
-            input_reshaped = K.reshape(input, stack_shape)
-
-            r0, r1, r2, r3 = tf.split(input_reshaped, num_or_size_splits=4, axis=-1)
-
-            r0 = tf.squeeze(r0, axis=-1)
-            r1 = tf.squeeze(r1, axis=-1)
-            r2 = tf.squeeze(r2, axis=-1)
-            r3 = tf.squeeze(r3, axis=-1)
-
-            r1 = tf.image.rot90(r1, k=3)
-            r2 = tf.image.rot90(r2, k=2)
-            r3 = tf.image.rot90(r3, k=1)
-
-            combined_reshaped = tf.concat(axis=-1, values=[r0, r1, r2, r3])
-
-            output = K.mean(input_reshaped, -1)
-
-            return output
-
-
-    @layer
-    def add_bias(self, input, name):
-        with tf.variable_scope(name) as scope:
-            c_i = input.get_shape()[-1]
-
-            biases = self.make_var('biases', [c_i])
-            output = tf.nn.bias_add(input, biases)
-
-            return output
 
 
