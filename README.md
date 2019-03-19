@@ -1,43 +1,55 @@
-## UNet
-Most code is learned from: https://github.com/DrSleep/tensorflow-deeplab-resnet
+## G-U-Net
+
 
 ## Requirements
 
-- Use anaconda3 to replicate the python environment. Details can be found here: https://conda.io/docs/user-guide/install/download.html
-- After install anaconda3, clone this directory to computer by running this command in terminal: `git clone https://tvton@bitbucket.org/tvton/unet.git`
+- Use anaconda3 to replicate the python environment.
+- After install anaconda3, clone this directory: `https://github.com/thatvinhton/G-U-Net.git`
 - Change to cloned directory.
-- To create the replicated python environment: `conda env create -f environment.yml`
-- To activate replicated environment: `source activate bio`
+- Create the replicated python environment: `conda env create -f environment.yml`
+- Activate replicated environment: `source activate bio`
 
-This code is tested on gpu: TITAN X 12GB. Other documents can be found at: https://conda.io/docs/user-guide/tasks/manage-environments.html 
+This code is tested on gpu: TITAN V 12GB. Other documents can be found at: https://conda.io/docs/user-guide/tasks/manage-environments.html 
+
+## Pre-processing
+Images should be pre-processed by method proposed in "*A.Vahadane, T.Peng, S.Albarqouni, M.Baust, K.Steiger, A.M.Schlitter, A.Sethi, I.Esposito, and N.Navab.* **Structure-preserved color normalization forhistological images.** In ISBI, pages 1012–1015, April 2015."
+
+We use image **TCGA-18-5592-01Z-00-DX1.tif** as target image and convert all other images to its color space.
+Lambda = 0.1 is used as recommendation. 
 
 
 ## Inference
-- Download the trained model and extract in the root of cloned directory: https://drive.google.com/open?id=1cpwDYvhOvdaTnssPHoRcEWgQ8cjSStqV
+- Download and extract the trained model: https://drive.google.com/file/d/16km15kPOgLyIWZhkq_W3qMdrVvsVgAHf/view?usp=sharing
 
-- To run the network on single image, follow this instruction:
+- The current inference code works on image of size 1000x1000.
+
+- To run the G-U-Net on single image, follow this instruction:
 ```
-python inference.py --img-link=<link to image> --checkpoints=<link to directory containing trained model>
-```
-For example:
-```
-python inference.py --img-link=./TCGA-18-5592-01Z-00-DX1.tif --checkpoints=./model
+python g_inference.py --img-link=<link to image> --checkpoints=<link to directory containing trained model>
 ```
 The result is the new image with name 'output.png'.
 
-- To run the network on whole directory containing a set of image, follow this instruction:
+- To run the G-U-Net on whole directory containing a set of image, follow this instruction:
 ```
-python inference.py --img-link=<link to image directory> --checkpoints=./model
+python g_inference.py --img-link=<link to image directory> --checkpoints=<link to directory containing trained model> --result-dir=<link to directory containing results>
 ```
+
+## Post-processing
+
+The results created from inference step should be post-processed to create final index.
+Change the result directory (from previous step) as input in *postProcessing.py* and run to create final results. 
 
 ## Short description
 
-1. scripts/dataloader.py: Some code for data loader.
-2. scripts/model.py: Contain classes which define the structure of network.
-3. scripts/network.py: Implement some basic layers or blocks for network.
+1. scripts/dataloader.py: Define Tensorflow's dataloader.
+2. scripts/model.py: Define U-Net architecture.
+3. scripts/network.py: Implement some basic layers or blocks used in network.
 4. scripts/tensorboard_logging.py: For logging the training process.
-5. train.py: Training code
-6. test.py: Test code (using 256x256 patch as input to check the output of the trained model).
-7. inference.py: Inference code using test time augmentation - TTA. Input will be an image/directory containing images of size 1000x1000.
-7. inference_no_tta.py: Inference code without using test time augmentation - TTA. Input will be an image/directory containing images of size 1000x1000.
+5. train.py: Code used to train ordinal U-Net (see required arguments for further information).
+6. g_train.py: Code used to train G-U-Net (see required arguments for further information).
+7. inference.py: Create prediction from U-Net.
+8. g_inference.py: Create prediction from G-U-Net.
 
+## Acknowledgements
+
+Most code is learned from: https://github.com/DrSleep/tensorflow-deeplab-resnet
