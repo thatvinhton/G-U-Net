@@ -1,5 +1,6 @@
-## G-U-Net
-
+## Enhanced Rotation-Equivariant U-Net for Nuclear Segmentation
+Chidester, Benjamin and Ton, That-Vinh and Tran, Minh-Triet and Ma, Jian and Do, Minh N.
+Computer Vision for Microscopy Image Analysis, CVPRW 2019. <a href="http://openaccess.thecvf.com/content_CVPRW_2019/papers/CVMI/Chidester_Enhanced_Rotation-Equivariant_U-Net_for_Nuclear_Segmentation_CVPRW_2019_paper.pdf">[PDF]</a>
 
 ## Requirements
 
@@ -52,4 +53,18 @@ Change the result directory (from previous step) as input in *postProcessing.py*
 
 ## Acknowledgements
 
-Most code is learned from: https://github.com/DrSleep/tensorflow-deeplab-resnet
+1. Most code is learned from: https://github.com/DrSleep/tensorflow-deeplab-resnet
+2. The g-conv layers are tensorflow implementation from this project: https://github.com/tscohen/GrouPy
+3. The g-batchnorm layers are implemented based on this project: https://github.com/ZJULearning/DREN
+
+## Citation
+Please cite our work if it helps your research/project:
+```
+@InProceedings{Chidester_2019_CVPR_Workshops,
+author = {Chidester, Benjamin and Ton, That-Vinh and Tran, Minh-Triet and Ma, Jian and Do, Minh N.},
+title = {Enhanced Rotation-Equivariant U-Net for Nuclear Segmentation},
+booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+month = {June},
+year = {2019}
+}
+```
