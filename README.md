@@ -1,5 +1,6 @@
 ## Enhanced Rotation-Equivariant U-Net for Nuclear Segmentation
-Chidester, Benjamin and Ton, That-Vinh and Tran, Minh-Triet and Ma, Jian and Do, Minh N.
+Chidester, Benjamin and Ton, That-Vinh and Tran, Minh-Triet and Ma, Jian and Do, Minh N.  
+
 Computer Vision for Microscopy Image Analysis, CVPRW 2019. <a href="http://openaccess.thecvf.com/content_CVPRW_2019/papers/CVMI/Chidester_Enhanced_Rotation-Equivariant_U-Net_for_Nuclear_Segmentation_CVPRW_2019_paper.pdf">[PDF]</a>
 
 ## Requirements
